@@ -36,7 +36,7 @@ export default function SearchMoviesResult(props) {
                         <div className='board__info'>
                         <h3 className='board__title'>{item.title}</h3>
                         <p className='board__overview'>{item.overview}</p>
-                        <Link className='board__link' to={`/movie/${item.id}`}>More...</Link>
+                        <Link className='board__link' to={`/the-movie-db/movie/${item.id}`}>More...</Link>
                         </div>
                     </div>
                 </div>

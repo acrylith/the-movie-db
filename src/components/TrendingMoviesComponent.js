@@ -34,7 +34,7 @@ export default function TrendingMoviesComponent() {
                         </div>
                         <span className='card__tag year'>{dayjs(item.release_date).format('YYYY')}</span>
                     </div>
-                    <h3 className='card__title'><Link to={`/movie/${item.id}`}>{item.title}</Link></h3>
+                    <h3 className='card__title'><Link to={`/the-movie-db/movie/${item.id}`}>{item.title}</Link></h3>
                 </div>
             </SwiperSlide>
         )

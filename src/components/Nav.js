@@ -8,8 +8,8 @@ export default function Nav() {
                 <div className='navbar'>
                     <h1 className='navbar__brand'>Wicked<span>Movies</span></h1>
                     <div className='navbar__navigation'>
-                        <Link className='navbar__link' to='/'>Home</Link>
-                        <Link className='navbar__link' to='/search'>Search</Link>
+                        <Link className='navbar__link' to='/the-movie-db'>Home</Link>
+                        <Link className='navbar__link' to='/the-movie-db/search'>Search</Link>
                     </div>
                 </div>
             </div>

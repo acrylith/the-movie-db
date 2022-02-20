@@ -10,11 +10,11 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/the-movie-db" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/movie/:movieId" element={<MoviePage />} />
-          <Route path="/TVseries/:TVId" element={<SeriesPage />} />
+          <Route path="/the-movie-db/search" element={<SearchPage />} />
+          <Route path="/the-movie-db/movie/:movieId" element={<MoviePage />} />
+          <Route path="/the-movie-db/TVseries/:TVId" element={<SeriesPage />} />
         </Route>
       </Routes>
     </div>

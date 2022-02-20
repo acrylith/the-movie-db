@@ -29,7 +29,7 @@ export default function TrendingTVComponent() {
                             />
                         </div>
                     </div>
-                    <h3 className='card__title'><Link to={`/TVseries/${item.id}`}>{item.name}</Link></h3>
+                    <h3 className='card__title'><Link to={`/the-movie-db/TVseries/${item.id}`}>{item.name}</Link></h3>
                 </div>
             </SwiperSlide>
         )
