@@ -239,6 +239,25 @@ nav {
         margin-bottom: 36px;
     }
 
+    &__heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__scroll {
+        cursor: pointer;
+        color: orangered;
+        transition: all .5s;
+        &:hover {
+            color: antiquewhite;
+        }
+    }
+
+    .scroll-active {
+        transform: scale(1.2);
+    }
+
     &__field {
         display: flex;
         align-items: stretch;
@@ -276,12 +295,39 @@ nav {
             color: antiquewhite;
         }
     }
+
+    &__pagination {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 12px;
+    }
+}
+
+.pagination {
+    &__item {
+        background-color: transparent;
+        color: orangered;
+        font-size: 18px;
+        line-height: 18px;
+        border: none;
+        cursor: pointer;
+        transition: all .5s;
+        &:hover {
+            color: antiquewhite;
+        }
+        &:disabled {
+            color: lightgray;
+            font-size: 20px;
+            cursor: default;
+        }
+    }
 }
 
 .board {
     padding: 12px;
-    border: 2px solid antiquewhite;
-    border-radius: 14px;
+    // border: 2px solid antiquewhite;
+    // border-radius: 14px;
     margin-bottom: 24px;
 
     &__image {
@@ -299,19 +345,11 @@ nav {
     }
 
     &__link {
-        align-self: flex-end;
-        margin-top: auto;
-        font-weight: 500;
-        font-size: 24px;
         color: orangered;
-        padding: 2px 8px;
-        border: 2px solid orangered;
-        border-radius: 8px;
         text-decoration: none;
         transition: all .3s;
         &:hover {
             color: antiquewhite;
-            border-color: antiquewhite;
         }
     }
 }

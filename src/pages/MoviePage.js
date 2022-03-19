@@ -103,7 +103,7 @@ export default function MoviePage() {
                     <div className='movie__body'>
                         <div className='row justify-content-center'>
 
-                            <div className='col-xl-4'>
+                            <div className='col-xl-3'>
                                 <div className='row justify-content-center'>
                                     <div className='col-md-6 col-xl-12'>
                                         <div className='movie__poster'>
@@ -120,7 +120,7 @@ export default function MoviePage() {
                                 
                             </div>
 
-                            <div className='col-xl-8'>
+                            <div className='col-xl-9'>
                                 <div className='row'>
                                     <div className='col-xl-10'>
                                         <div className='movie__info'>

@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getMovieSearch } from '../redux/asynch/getSearchResult'
+import { getMovieSearch } from '../redux/asynch/getSearchResult';
+import { Link as ScrollLink } from 'react-scroll';
 
 export default function SearchMoviesResult(props) {
-    const dispatch = useDispatch()
-    const searchResult = useSelector(state => state.searchResult.movie)
+    const [page, setPage] = useState(1);
+    const dispatch = useDispatch();
+    const searchResult = useSelector(state => state.searchResult.movie);
 
     useEffect(() => {
-        dispatch(getMovieSearch(props.searchRequest))
-    }, [props.searchRequest])
+        dispatch(getMovieSearch(props.searchRequest, page))// eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.searchRequest, page])
 
     const movieCard = (item) => {
         return(
@@ -35,25 +37,59 @@ export default function SearchMoviesResult(props) {
                     <div className='col-8'>
                         <div className='board__info'>
                         <h3 className='board__title'>{item.title}</h3>
-                        <p className='board__overview'>{item.overview}</p>
-                        <Link className='board__link' to={`/the-movie-db/movie/${item.id}`}>More...</Link>
+                        <p className='board__overview'>
+                            {item.overview.slice(0, 150)}<span>...<Link className='board__link' to={`/the-movie-db/movie/${item.id}`}>Read more</Link></span>
+                        </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         )
-      }
+    }
+
+    const Pagination = () => {
+        let content = [];
+        for(let i = 1; i <= searchResult.total_pages; i++) {
+            content.push(
+                <button
+                    className='pagination__item'
+                    key={i}
+                    onClick={() => setPage(i)}
+                    disabled={i === page ? true : false}>
+                        {i}
+                </button>
+            )
+        }
+        return content
+    }
 
     return (
-        <div className='search__results'>
-            <div className='search__movies'>
-            <div className='row wrap'>
-                {searchResult.results?
-                searchResult.results.map(item => movieCard(item))
-                : <p>List is Empty</p>
-                }
+        <div className='search__results' id='movies-result'>
+            <div className='search__heading'>
+                <h2>Movies</h2>
+                <ScrollLink 
+                    to='TVs-result'
+                    smooth='true'
+                    duration={500}
+                    offset={-34}
+                    className='search__scroll'
+                    activeClass='scroll-active'
+                >
+                    TV series &#9660;
+                </ScrollLink>
             </div>
+            
+            <div className='search__movies'>
+                <div className='row wrap'>
+                    {searchResult.results?
+                    searchResult.results.map(item => movieCard(item))
+                    : null
+                    }
+                </div>
+            </div>
+            <div className='search__pagination pagination'>
+                <Pagination />
             </div>
         </div>
     )

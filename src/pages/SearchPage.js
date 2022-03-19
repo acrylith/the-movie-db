@@ -1,35 +1,25 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router'
+import SearchInput from '../components/SearchInput'
 import SearchMoviesResult from '../components/SearchMoviesResult'
+import SearchTVResult from '../components/SearchTVResult'
 
 export default function SearchPage() {
   const [ searchValue, setSearchValue ] = useState()
-  const navigate = useNavigate()
-
-  let formatedSearch = ""
-
-  const formatSearch = (input) => {
-    formatedSearch = input.replace(/\s/g, '%20');
-  }
 
   return (
     <section className='search'>
       <div className='container'>
         <div className='search__header'>
-          <span className='search__back' onClick={() => navigate(-1)}>&#5130; Back</span>
-          <div className='search__field'>
-            <input
-              className="search__input"
-              type="text"
-              onChange={(e) => formatSearch(e.target.value)}
-            />
-            <button className="search__button" onClick={() => setSearchValue(formatedSearch)}>
-
-            </button>
-          </div>
+          <SearchInput setSearchValue={setSearchValue} />
         </div>
         
-        <SearchMoviesResult searchRequest={searchValue} />
+        {searchValue?
+          <div>
+            <SearchMoviesResult searchRequest={searchValue} />
+            <SearchTVResult searchRequest={searchValue} />
+          </div>: null
+        }
+        
       </div>
     </section>
   )
