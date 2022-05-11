@@ -9,9 +9,7 @@ export default function SearchPage() {
   return (
     <section className='search'>
       <div className='container'>
-        <div className='search__header'>
-          <SearchInput setSearchValue={setSearchValue} />
-        </div>
+        <SearchInput setSearchValue={setSearchValue} />
         
         {searchValue?
           <div>

@@ -8,17 +8,16 @@ import { getTrendingMovies } from '../redux/asynch/getTrendingMovies';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
+import LoadSpinner from './LoadSpinner';
 
 export default function TrendingMoviesComponent() {
     const dispatch = useDispatch();
     const trendingMovies = useSelector(state => state.trending.movies);
 
     useEffect(() => {
-        if(trendingMovies.isMovies === false){
-            dispatch(getTrendingMovies())
-        }// eslint-disable-next-line react-hooks/exhaustive-deps
+        dispatch(getTrendingMovies())// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
+    
     const displayCard = (item, index) => {
         return(
             <SwiperSlide key={index}>
@@ -44,32 +43,38 @@ export default function TrendingMoviesComponent() {
         <div className='trending movies'>
             <h1 className='trending__title'>Trending <span>Movies</span></h1>
             <div className='trending__list'>
-                <Swiper
-                    modules={[Navigation]}
-                    slidesPerView={1}
-                    spaceBetween={6}
-                    navigation
-                    breakpoints={{
-                        576: {
-                          slidesPerView: 2,
-                          spaceBetween: 12,
-                        },
-                        768: {
-                          slidesPerView: 3,
-                          spaceBetween: 18,
-                        },
-                        1200: {
-                          slidesPerView: 4,
-                          spaceBetween: 24,
+                {trendingMovies.isLoading === true ?
+                    <LoadSpinner /> :
+                    trendingMovies.error !== null ?
+                    <h2>{trendingMovies.error}</h2> :
+                    <Swiper
+                        modules={[Navigation]}
+                        slidesPerView={1}
+                        spaceBetween={6}
+                        navigation
+                        breakpoints={{
+                            576: {
+                            slidesPerView: 2,
+                            spaceBetween: 12,
+                            },
+                            768: {
+                            slidesPerView: 3,
+                            spaceBetween: 18,
+                            },
+                            1200: {
+                            slidesPerView: 4,
+                            spaceBetween: 24,
+                            }
+                        }}
+                        className="mySwiper"
+                    >
+                        {trendingMovies.list.results? 
+                            trendingMovies.list.results.map((item, index) => displayCard(item, index))
+                            : null
                         }
-                    }}
-                    className="mySwiper"
-                >
-                    {trendingMovies.list.results? 
-                        trendingMovies.list.results.map((item, index) => displayCard(item, index))
-                        : <p>List is Empty</p>
-                    }
-                </Swiper>
+                    </Swiper>
+                }
+                
             </div>
         </div>
     )

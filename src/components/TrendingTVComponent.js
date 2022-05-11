@@ -4,15 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { getTrendingTV } from '../redux/asynch/getTrendingTV';
+import LoadSpinner from './LoadSpinner';
 
 export default function TrendingTVComponent() {
     const dispatch = useDispatch();
     const trendingTV = useSelector(state => state.trending.tv)
 
     useEffect(() => {
-        if(trendingTV.isTV === false) {
-            dispatch(getTrendingTV())
-        }// eslint-disable-next-line react-hooks/exhaustive-deps
+        dispatch(getTrendingTV())// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const displayCard = (item, index) => {
@@ -39,30 +38,36 @@ export default function TrendingTVComponent() {
         <div className='trending tv'>
             <h1 className='trending__title'>Trending <span>TV's</span></h1>
             <div className='trending__list'>
-                <Swiper
-                    modules={[Navigation]}
-                    navigation
-                    breakpoints={{
-                        576: {
-                          slidesPerView: 2,
-                          spaceBetween: 12,
-                        },
-                        768: {
-                          slidesPerView: 3,
-                          spaceBetween: 18,
-                        },
-                        1200: {
-                          slidesPerView: 4,
-                          spaceBetween: 24,
+                {trendingTV.isLoading === true ?
+                    <LoadSpinner />:
+                trendingTV.error !== null ?
+                    <h2>{trendingTV.error}</h2>:
+                    <Swiper
+                        modules={[Navigation]}
+                        navigation
+                        breakpoints={{
+                            576: {
+                            slidesPerView: 2,
+                            spaceBetween: 12,
+                            },
+                            768: {
+                            slidesPerView: 3,
+                            spaceBetween: 18,
+                            },
+                            1200: {
+                            slidesPerView: 4,
+                            spaceBetween: 24,
+                            }
+                        }}
+                        className="mySwiper"
+                    >
+                        {trendingTV.list.results? 
+                            trendingTV.list.results.map((item, index) => displayCard(item, index))
+                            : <p>List is Empty</p>
                         }
-                    }}
-                    className="mySwiper"
-                >
-                    {trendingTV.list.results? 
-                        trendingTV.list.results.map((item, index) => displayCard(item, index))
-                        : <p>List is Empty</p>
-                    }
-                </Swiper>
+                    </Swiper>
+                }
+                
             </div>
         </div>
     )

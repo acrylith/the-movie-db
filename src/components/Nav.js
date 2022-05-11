@@ -10,6 +10,7 @@ export default function Nav() {
                     <div className='navbar__navigation'>
                         <Link className='navbar__link' to='/the-movie-db'>Home</Link>
                         <Link className='navbar__link' to='/the-movie-db/search'>Search</Link>
+                        <Link className='navbar__link' to='/the-movie-db/discover'>Discover</Link>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
 import MoviePage from "./pages/MoviePage";
 import SeriesPage from "./pages/SeriesPage";
+import DiscoverPage from "./pages/DiscoverPage";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Route path="/the-movie-db" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/the-movie-db/search" element={<SearchPage />} />
+          <Route path="/the-movie-db/discover" element={<DiscoverPage />} />
           <Route path="/the-movie-db/movie/:movieId" element={<MoviePage />} />
           <Route path="/the-movie-db/TVseries/:TVId" element={<SeriesPage />} />
         </Route>

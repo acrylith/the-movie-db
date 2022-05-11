@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getMovieSearch } from '../redux/asynch/getSearchResult';
 import { Link as ScrollLink } from 'react-scroll';
+import LoadSpinner from './LoadSpinner';
 
 export default function SearchMoviesResult(props) {
     const [page, setPage] = useState(1);
@@ -50,7 +51,7 @@ export default function SearchMoviesResult(props) {
 
     const Pagination = () => {
         let content = [];
-        for(let i = 1; i <= searchResult.total_pages; i++) {
+        for(let i = 1; i <= searchResult.data.total_pages; i++) {
             content.push(
                 <button
                     className='pagination__item'
@@ -82,9 +83,11 @@ export default function SearchMoviesResult(props) {
             
             <div className='search__movies'>
                 <div className='row wrap'>
-                    {searchResult.results?
-                    searchResult.results.map(item => movieCard(item))
-                    : null
+                    {
+                        searchResult.isLoading === true ? <LoadSpinner /> :
+                        searchResult.error !== null ? <h2>{searchResult.error}</h2>:
+                        searchResult.data.request === [] ? <h2>Bad search request</h2>:
+                        searchResult.data.results ? searchResult.data.results.map(item =>movieCard(item)) : null
                     }
                 </div>
             </div>
