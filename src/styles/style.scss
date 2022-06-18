@@ -14,6 +14,10 @@ body {
     background-color: rgb(46, 46, 46);
 }
 
+section {
+    margin-bottom: 60px;
+}
+
 .load-spinner {
     width: 100%;
     display: flex;
@@ -48,82 +52,6 @@ body {
       }
 }
 
-nav {
-    background-color: rgb(36, 36, 36);
-    margin-bottom: 24px;
-
-    .mobile {
-        display: none;
-    }
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    &__brand {
-        color: $secondary;
-        // cursor: default;
-        font-weight: bold;
-        text-decoration: none;
-        font-size: 28px;
-        margin: 0.5em 0;
-        i:first-of-type {
-            color: $main;
-            margin-right: 12px;
-        }
-    }
-
-    &__navigation {
-        display: flex;
-        gap: 16px;
-    }
-
-    &__link {
-        color: $secondary;
-        font-size: 18px;
-        font-weight: bold;
-        text-decoration: none;
-        transition: all .3s;
-        &:hover {
-            color: $main;
-        }
-    }
-    .active {
-        color: $main;
-    }
-}
-
-.mob {
-    margin: 12px 0;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 0.5em;
-    &__link {
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-        color: $secondary;
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: 400;
-    }
-    .active {
-        color: $main;
-    }
-}
-
-.trending {
-    &__title {
-        text-align: center;
-        span {
-            color: $main;
-        }
-    }
-}
-
 .swiper-button-prev, .swiper-button-next {
     &::after {
         font-family: 'Inter', sans-serif;
@@ -142,60 +70,6 @@ nav {
 .swiper-button-next {
     &::after {
         content: "\2771" !important;
-    }
-}
-
-.card {
-    border: 2px solid $secondary;
-    border-radius: 14px;
-    padding: 8px;
-    margin-bottom: 24px;
-
-    &__title {
-        height: 2em;
-        text-align: center;
-        a {
-            color: $secondary;
-            text-decoration: none;
-            transition: all .3s;
-            &:hover {
-                color: $main;
-            }
-        }
-    }
-
-    &__body {
-        position: relative;
-    }
-
-    &__image {
-        &-wrapper {
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        
-        width: 100%;
-    }
-
-    &__tag {
-        position: absolute;
-        font-size: 12px;
-        font-weight: bold;
-        padding: 2px 4px;
-        border-radius: 4px;
-        cursor: default;
-    }
-
-    .vote {
-        top: 8px;
-        left: 8px;
-        background-color: chocolate;
-    }
-
-    .year {
-        bottom: 8px;
-        right: 8px;
-        background-color: deepskyblue;
     }
 }
 
@@ -487,34 +361,7 @@ nav {
     }
 }
 
-@media (max-width: 767px) {
-    nav {
-        position: fixed;
-        width: 100%;
-        z-index: 10000;
-        margin: 0;
-        bottom: 0;
-        .desktop {
-            display: none;
-        }
-
-        .mobile {
-            display: block;
-        }
-    }
-}
-
 @media (max-width: 576px) {
-    .navbar {
-        &__brand {
-            font-size: 14px;
-        }
-
-        &__link {
-            font-size: 8px;
-        }
-    }
-
     .movie {
         &__title {
             width: 50%;

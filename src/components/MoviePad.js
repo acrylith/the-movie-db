@@ -43,8 +43,8 @@ export default function MoviePad(props) {
                                 <Link
                                     className='board__link'
                                     to={
-                                            props.type === 'movie' ? `/the-movie-db/movie/${props.item.id}`:
-                                            props.type === 'tv' ? `/the-movie-db/TVseries/${props.item.id}`: null
+                                            props.type === 'movie' ? `../movie/${props.item.id}`:
+                                            props.type === 'tv' ? `../TVseries/${props.item.id}`: null
                                         }
                                     >
                                     Read more
