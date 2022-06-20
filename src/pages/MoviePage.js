@@ -5,8 +5,9 @@ import { useNavigate, useParams } from 'react-router';
 import { getMovieInfo } from '../redux/asynch/getMovieInfo';
 import ActorSlider from '../components/ActorSlider';
 import LoadSpinner from '../components/LoadSpinner';
+import styled from 'styled-components';
 
-export default function MoviePage() {
+export default function MoviePage(props) {
     const params = useParams();
     const dispatch = useDispatch();
     const movieInfo = useSelector(state => state.moviePage.info)
@@ -17,7 +18,7 @@ export default function MoviePage() {
         dispatch(getMovieInfo(params.movieId))// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const Table = () => {
+    const Info = () => {
         const getDirector = (crew) => {
             let result = crew.filter(item => item.job === 'Director');
             return result.map(item => {return <span key={item.id}>{item.name}</span>})
@@ -29,11 +30,11 @@ export default function MoviePage() {
             return <h2>{movieInfo.error}</h2>
         } else {
             return(
-                <table className='movie__table'>
+                <Table className='movie__table'>
                     <tbody>
                         <tr>
                             <th>Vote:</th>
-                            <td className='vote'>{movieInfo.data.vote_average} <span>({movieInfo.data.vote_count})</span></td>
+                            <Vote className='vote'>{movieInfo.data.vote_average} <span>({movieInfo.data.vote_count})</span></Vote>
                         </tr>
                         <tr>
                             <th>Release date:</th>
@@ -69,24 +70,21 @@ export default function MoviePage() {
                             <td>{movieInfo.data.runtime} minutes</td>
                         </tr>
                     </tbody>
-                </table>
+                </Table>
             )
         }
-
-        
     }
 
     return (
         <section className='movie-page'>
             <div className='container'>
                 <div className='movie'>
-                    <div className='movie__header'>
-                        <span className='movie__back' onClick={() => navigate(-1)}>&#5130; Back</span>
+                    <Header className='movie__header'>
+                        <BackLink className='movie__back' onClick={() => navigate(-1)}><i className='ic-angle-left'/> Back</BackLink>
                         <h2 className='movie__title'>{movieInfo.data.title}</h2>
-                    </div>
+                    </Header>
                     <div className='movie__body'>
                         <div className='row justify-content-center'>
-
                             <div className='col-xl-3'>
                                 <div className='row justify-content-center'>
                                     <div className='col-md-6 col-xl-12'>
@@ -97,6 +95,7 @@ export default function MoviePage() {
                                                     movieInfo.error !== null ? <h2>{movieInfo.error}</h2>:
                                                     <img
                                                         className='movie__image'
+                                                        style={{width: "100%"}}
                                                         src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieInfo.data.poster_path}`}
                                                         alt={movieInfo.data.title}
                                                     />
@@ -105,14 +104,12 @@ export default function MoviePage() {
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
-
                             <div className='col-xl-9'>
                                 <div className='row'>
                                     <div className='col-xl-10'>
                                         <div className='movie__info'>
-                                            <Table />
+                                            <Info />
 
                                             {movieInfo.isLoading === true ? <LoadSpinner />:
                                                 movieInfo.error !== null ? <h2>{movieInfo.error}</h2>:
@@ -139,3 +136,59 @@ export default function MoviePage() {
         </section>
     )
 }
+
+const Header = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    h2 {
+        text-align: center;
+        @media (max-width: 576px) {
+            width: 50%;
+            font-size: 20px;
+        }
+    }
+`
+
+const BackLink = styled.span`
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: ${props => props.theme.main};
+    cursor: pointer;
+    transition: all .3s;
+    &:hover {
+        color: ${props => props.theme.text};
+    }
+`
+const Table = styled.table`
+    display: flex;
+    @media (max-width: 1200px) {
+        justify-content: center;
+    }
+
+    td {
+        span {
+            &::after {
+                content: ", "
+            }
+            &:last-child::after {
+                content: "";
+            }
+        }
+    }
+
+    th {
+        width: 160px;
+        text-align: start;
+    }
+`
+const Vote = styled.td`
+    font-weight: bolder;
+    span {
+        font-weight: 300;
+        color: gray;
+    }
+`

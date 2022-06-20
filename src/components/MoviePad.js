@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 export default function MoviePad(props) {
     return (
         <div className='col-lg-6'>
-            <div className='board'>
+            <Board className='board'>
                 <div className='row'>
                     <div className='col-4'>
-                        <div className='board__image-wrapper'>
+                        <Image className='board__image-wrapper'>
                             {props.item.poster_path ?
                                 <img
                                     className='board__image'
@@ -26,35 +27,64 @@ export default function MoviePad(props) {
                                     }
                                 />
                             }
-                        </div>
+                        </Image>
                     </div>
                     <div className='col-8'>
-                        <div className='board__info'>
-                        <h3 className='board__title'>
-                        {
-                            props.type === 'movie' ? props.item.title:
-                            props.type === 'tv' ? props.item.name: null
-                        }
-                        </h3>
-                        <p className='board__overview'>
-                            {props.item.overview.slice(0, 150)}
-                            <span>
-                                ...
-                                <Link
-                                    className='board__link'
-                                    to={
-                                            props.type === 'movie' ? `../movie/${props.item.id}`:
-                                            props.type === 'tv' ? `../TVseries/${props.item.id}`: null
-                                        }
-                                    >
-                                    Read more
-                                </Link>
-                            </span>
-                        </p>
-                        </div>
+                        <Info className='board__info'>
+                            <h3 className='board__title'>
+                            {
+                                props.type === 'movie' ? props.item.title:
+                                props.type === 'tv' ? props.item.name: null
+                            }
+                            </h3>
+                            <p className='board__overview'>
+                                {props.item.overview.slice(0, 150)}
+                                <span>
+                                    ...
+                                    <StyledLink
+                                        className='board__link'
+                                        to={
+                                                props.type === 'movie' ? `../movie/${props.item.id}`:
+                                                props.type === 'tv' ? `../TVseries/${props.item.id}`: null
+                                            }
+                                        >
+                                        Read more<i className='ic-angle-right' />
+                                    </StyledLink>
+                                </span>
+                            </p>
+                        </Info>
                     </div>
                 </div>
-            </div>
+            </Board>
         </div>
     )
 }
+
+const Board = styled.div`
+    padding: 12px;
+    margin-bottom: 24px;
+`
+const Image = styled.div`
+    border-radius: 14px;
+    overflow: hidden;
+    img {
+        width: 100%;
+    }
+`
+const Info = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column
+`
+const StyledLink = styled(Link)`
+    color: ${props => props.theme.main};
+    text-decoration: none;
+    transition: all .3s;
+    &:hover {
+        color: ${props => props.theme.text};
+    }
+
+    i {
+        margin-left: 6px;
+    }
+`

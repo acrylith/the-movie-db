@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router';
 import ActorSlider from '../components/ActorSlider';
 import LoadSpinner from '../components/LoadSpinner';
 import { getSeriesInfo } from '../redux/asynch/getSeriesInfo';
+import styled from 'styled-components';
 
 export default function SeriesPage() {
     const params = useParams();
@@ -18,15 +19,15 @@ export default function SeriesPage() {
         dispatch(getSeriesInfo(params.TVId))// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const Table = (props) => {
+    const Info = (props) => {
         const {data} = props;
 
         return(
-            <table className='movie__table'>
+            <Table className='movie__table'>
                 <tbody>
                     <tr>
                         <th>Vote:</th>
-                        <td className='vote'>{data.vote_average} <span>({data.vote_count})</span></td>
+                        <Vote className='vote'>{data.vote_average} <span>({data.vote_count})</span></Vote>
                     </tr>
                     <tr>
                         <th>First air date:</th>
@@ -80,7 +81,7 @@ export default function SeriesPage() {
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </Table>
         )
     }
     
@@ -88,10 +89,10 @@ export default function SeriesPage() {
         <section className='series-page'>
             <div className='container'>
                 <div className='movie'>
-                    <div className='movie__header'>
-                        <span className='movie__back' onClick={() => navigate(-1)}>&#5130; Back</span>
+                    <Header className='movie__header'>
+                        <BackLink className='movie__back' onClick={() => navigate(-1)}><i className='ic-angle-left'/> Back</BackLink>
                         <h2 className='movie__title'>{seriesInfo.data.name}</h2>
-                    </div>
+                    </Header>
                     <div className='movie__body'>
                         <div className='row justify-content-center'>
 
@@ -105,6 +106,7 @@ export default function SeriesPage() {
                                                     seriesInfo.error !== null ? <h2>{seriesInfo.error}</h2>:
                                                     <img
                                                         className='movie__image'
+                                                        style={{width: "100%"}}
                                                         src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${seriesInfo.data.poster_path}`}
                                                         alt={seriesInfo.data.name}
                                                     />
@@ -125,7 +127,7 @@ export default function SeriesPage() {
                                                     <LoadSpinner />:
                                                 seriesInfo.error !== null ?
                                                     <h2>{seriesInfo.error}</h2>:
-                                                    <Table data={seriesInfo.data} />
+                                                    <Info data={seriesInfo.data} />
                                             }
 
                                             {
@@ -156,3 +158,59 @@ export default function SeriesPage() {
         </section>
     )
 }
+
+const Header = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    h2 {
+        text-align: center;
+        @media (max-width: 576px) {
+            width: 50%;
+            font-size: 20px;
+        }
+    }
+`
+
+const BackLink = styled.span`
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: ${props => props.theme.main};
+    cursor: pointer;
+    transition: all .3s;
+    &:hover {
+        color: ${props => props.theme.text};
+    }
+`
+const Table = styled.table`
+    display: flex;
+    @media (max-width: 1200px) {
+        justify-content: center;
+    }
+
+    td {
+        span {
+            &::after {
+                content: ", "
+            }
+            &:last-child::after {
+                content: "";
+            }
+        }
+    }
+
+    th {
+        width: 160px;
+        text-align: start;
+    }
+`
+const Vote = styled.td`
+    font-weight: bolder;
+    span {
+        font-weight: 300;
+        color: gray;
+    }
+`

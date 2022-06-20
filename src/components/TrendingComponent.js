@@ -59,7 +59,7 @@ export default function TrendingComponent(props) {
                     <LoadSpinner /> :
                     data.error !== null ?
                     <h2>{data.error}</h2> :
-                    <Swiper
+                    <StyledSwiper
                         modules={[Navigation]}
                         slidesPerView={1}
                         spaceBetween={6}
@@ -78,13 +78,12 @@ export default function TrendingComponent(props) {
                             spaceBetween: 24,
                             }
                         }}
-                        className="mySwiper"
                     >
                         {data.list.results ? 
                             data.list.results.map((item, index) => displayCard(item, index))
                             : null
                         }
-                    </Swiper>
+                    </StyledSwiper>
                 }
                 
             </div>
@@ -92,17 +91,37 @@ export default function TrendingComponent(props) {
     )
 }
 
-const main = "#ff4500";
-const secondary = "#faebd7";
-
 const Title = styled.h1`
     text-align: center;
     span {
-        color: ${main};
+        color: ${props => props.theme.main};
+    }
+`
+const StyledSwiper = styled(Swiper)`
+    .swiper-button-prev, .swiper-button-next {
+        &::after {
+            border-radius: 4px;
+            font-family: 'icomoon';
+            background-color: rgba(36, 36, 36, 0.7) !important;
+            padding: 6px;
+            color: ${props => props.theme.main};
+        }
+    }
+
+    .swiper-button-prev {
+        &::after {
+            content: "\f104" !important;
+        }
+    }
+
+    .swiper-button-next {
+        &::after {
+            content: "\f105" !important;
+        }
     }
 `
 const Card = styled.div`
-    border: 2px solid ${secondary};
+    border: 2px solid ${props => props.theme.text};
     border-radius: 14px;
     padding: 8px;
     margin-bottom: 24px;
@@ -121,11 +140,11 @@ const CardTitle = styled.h3`
     height: 2em;
     text-align: center;
     a {
-        color: ${secondary};
+        color: ${props => props.theme.text};
         text-decoration: none;
         transition: all .3s;
         &:hover {
-            color: ${main};
+            color: ${props => props.theme.main};
         }
     }
 `
@@ -141,6 +160,9 @@ const Vote = styled(Tag)`
     top: 8px;
     left: 8px;
     background-color: chocolate;
+    i {
+        margin-right: 4px;
+    }
 `
 const Year = styled(Tag)`
     bottom: 8px;

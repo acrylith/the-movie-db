@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import LoadSpinner from './LoadSpinner';
 
 export default function GenreTab(props) {
@@ -19,7 +20,7 @@ export default function GenreTab(props) {
     }
 
     return (
-        <div className='checkboxes'>
+        <Checkboxes className='checkboxes'>
             {genres.data.genres !== undefined ?
                 genres.data.genres.map((item, index) => {
                     return(
@@ -36,6 +37,28 @@ export default function GenreTab(props) {
                 }):
                 genres.isLoading === true ? <LoadSpinner /> : null
             }
-        </div>
+        </Checkboxes>
     )
 }
+
+const Checkboxes = styled.div`
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    label {
+        padding: 2px 4px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all .3s;
+        &:hover {
+            background-color: rgba(255, 68, 0, 0.4);
+        }
+    }
+
+    input {
+        display: none;
+        &:checked + label {
+            background-color: ${props => props.theme.main};
+        }
+    }
+`

@@ -10,19 +10,19 @@ function App() {
 
   return (
     <div className="App">
-      <Routes>
-        <Route path="the-movie-db" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="search" element={<SearchPage />} />
-          <Route path="discover" element={<DiscoverPage />} />
-          <Route path="movie">
-            <Route path=":movieId" element={<MoviePage />} />
+        <Routes>
+          <Route path="the-movie-db" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="search" element={<SearchPage />} />
+            <Route path="discover" element={<DiscoverPage />} />
+            <Route path="movie">
+              <Route path=":movieId" element={<MoviePage />} />
+            </Route>
+            <Route path="TVseries">
+              <Route path=":TVId" element={<SeriesPage />} />
+            </Route>
           </Route>
-          <Route path="TVseries">
-            <Route path=":TVId" element={<SeriesPage />} />
-          </Route>
-        </Route>
-      </Routes>
+        </Routes>
     </div>
   );
 }

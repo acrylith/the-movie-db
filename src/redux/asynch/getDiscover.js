@@ -15,9 +15,7 @@ export const getMoviesDiscover = (request, page) => {
         try {
             dispatch(fetchMovieDiscover())
             const movieResponse = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${page}&with_genres=${request}`)
-            setTimeout(() => {
-                dispatch(fetchMovieDiscoverSuccess(movieResponse.data))
-            }, 1000);
+            dispatch(fetchMovieDiscoverSuccess(movieResponse.data))
         }
 
         catch (e) {
@@ -31,9 +29,7 @@ export const getTvDiscover = (request, page) => {
         try {
             dispatch(fetchTvDiscover())
             const tvResponse = await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${page}&with_genres=${request}`)
-            setTimeout(() => {
-                dispatch(fetchTvDiscoverSuccess(tvResponse.data))
-            }, 1000);
+            dispatch(fetchTvDiscoverSuccess(tvResponse.data))
         }
 
         catch (e) {

@@ -14,9 +14,7 @@ export const getMovieGenres = () => {
         try {
             dispatch(fetchMovieGenres())
             const genresResponse = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${key}&language=en-US`)
-            setTimeout(() => {
-                dispatch(fetchMovieGenresSuccess(genresResponse.data))
-            }, 1000);
+            dispatch(fetchMovieGenresSuccess(genresResponse.data))
         }
 
         catch (e) {
@@ -30,9 +28,7 @@ export const getTvGenres = () => {
         try {
             dispatch(fetchTvGenres())
             const genresResponse = await axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${key}&language=en-US`)
-            setTimeout(() => {
-                dispatch(fetchTvGenresSuccess(genresResponse.data))
-            }, 1000);
+            dispatch(fetchTvGenresSuccess(genresResponse.data))
         }
 
         catch (e) {

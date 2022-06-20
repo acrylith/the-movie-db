@@ -53,25 +53,25 @@ export default function Nav() {
 }
 
 const Brand = styled(RLink)`
-    color: #faebd7;
+    color: ${props => props.theme.text};
     font-weight: bold;
     text-decoration: none;
     font-size: 28px;
     margin: 0.5em 0;
     i:first-of-type {
-        color: #ff4500;
+        color: ${props => props.theme.main};
         margin-right: 12px;
     }
 `
 
 const Link = styled(RNavLink)`
-    color: #faebd7;
+    color: ${props =>props.theme.text};
     font-size: 18px;
     font-weight: bold;
     text-decoration: none;
     transition: all .3s;
     &:hover {
-        color: #ff4500;
+        color: ${props => props.theme.main};
     }
 `
 
@@ -80,7 +80,7 @@ const Navbar = styled.div`
     justify-content: space-between;
     align-items: center;
     .active {
-        color: #ff4500;
+        color: ${props => props.theme.main};
     }
 `
 
@@ -122,7 +122,7 @@ const Mob = styled.div`
     gap: 0.5em;
 
     .active {
-        color: #ff4500;
+        color: ${props => props.theme.main};
     }
 `
 
@@ -130,7 +130,7 @@ const MobLink = styled(RNavLink)`
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    color: #faebd7;
+    color: ${props => props.theme.text};
     text-decoration: none;
     font-size: 18px;
     font-weight: 400;

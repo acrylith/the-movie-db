@@ -24,9 +24,7 @@ export default function SearchResult(props) {
                     }
                 </div>
             </div>
-            <div className='search__pagination pagination'>
-                <Pagination current={page} set={setPage} total={props.searchResult.data.total_pages} />
-            </div>
+            <Pagination current={page} set={setPage} total={props.searchResult.data.total_pages} />
         </div>
     )
 }
