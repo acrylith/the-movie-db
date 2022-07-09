@@ -1,11 +1,12 @@
 import dayjs from 'dayjs';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router';
 import ActorSlider from '../components/ActorSlider';
 import LoadSpinner from '../components/LoadSpinner';
 import { getSeriesInfo } from '../redux/asynch/getSeriesInfo';
 import styled from 'styled-components';
+import PosterGallery from '../components/PosterGallery';
 
 export default function SeriesPage() {
     const params = useParams();
@@ -13,7 +14,7 @@ export default function SeriesPage() {
     const seriesInfo = useSelector(state => state.seriesPage.info);
     const seriesCrew = useSelector(state => state.seriesPage.crew);
     const navigate = useNavigate()
-
+    const [gallery, setGallery] = useState(false)
 
     useEffect(() => {
         dispatch(getSeriesInfo(params.TVId))// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,6 +88,7 @@ export default function SeriesPage() {
     
     return (
         <section className='series-page'>
+            { gallery === true ? <PosterGallery toggle={setGallery} id={params.TVId} type="tv" /> : null }
             <div className='container'>
                 <div className='movie'>
                     <Header className='movie__header'>
@@ -100,18 +102,20 @@ export default function SeriesPage() {
                                 <div className='row justify-content-center'>
                                     <div className='col-md-6 col-xl-12'>
                                         <div className='movie__poster'>
-                                            <div className='movie__image-wrapper'>
+                                            <Poster className='movie__image-wrapper' onClick={() => setGallery(true)}>
                                                 {
                                                     seriesInfo.isLoading === true ? <LoadSpinner />:
                                                     seriesInfo.error !== null ? <h2>{seriesInfo.error}</h2>:
                                                     <img
                                                         className='movie__image'
-                                                        style={{width: "100%"}}
                                                         src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${seriesInfo.data.poster_path}`}
                                                         alt={seriesInfo.data.name}
                                                     />
                                                 }
-                                            </div>
+                                                <div className='mask'>
+                                                    <i className="ic-search" />
+                                                </div>
+                                            </Poster>
                                         </div>
                                     </div>
                                 </div>
@@ -212,5 +216,31 @@ const Vote = styled.td`
     span {
         font-weight: 300;
         color: gray;
+    }
+`
+
+const Poster = styled.div`
+    position: relative;
+    cursor: pointer;
+    img {
+        width: 100%;
+    }
+    .mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: all .5s;
+    }
+    &:hover {
+        .mask {
+            opacity: 1;
+        }
     }
 `

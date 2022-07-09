@@ -3,10 +3,14 @@ import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/navigation';
 import LoadSpinner from './LoadSpinner';
 import styled from 'styled-components';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 export default function TrendingComponent(props) {
     const { data, type } = props; 
@@ -17,12 +21,14 @@ export default function TrendingComponent(props) {
                 <Card className='card'>
                     <CardBody className='card__body'>
                         <Vote className='card__tag vote'>
-                            <i className='ic-star' />{item.vote_average}
+                            <i className='ic-star' />{item.vote_average.toFixed(1)}
                         </Vote>
                         <CardImage className='card__image-wrapper'>
-                            <img
+                            <LazyLoadImage
                                 className='card__image'
                                 src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.poster_path}`}
+                                palaceholder={<h3>Loading...</h3>}
+                                effect="blur"
                                 alt={
                                     type === 'movie' ? item.title: type === 'tv' ? item.name : "poster"
                                 }
@@ -119,12 +125,20 @@ const StyledSwiper = styled(Swiper)`
             content: "\f105" !important;
         }
     }
+
+    .swiper-slide {
+        height: auto;
+    }
 `
 const Card = styled.div`
     border: 2px solid ${props => props.theme.text};
     border-radius: 14px;
     padding: 8px;
     margin-bottom: 24px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `
 const CardBody = styled.div`
     position: relative;
@@ -137,7 +151,12 @@ const CardImage = styled.div`
     }
 `
 const CardTitle = styled.h3`
-    height: 2em;
+    // height: 2em;
+    flex-grow: 1;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     a {
         color: ${props => props.theme.text};

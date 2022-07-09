@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function MoviePad(props) {
     return (
@@ -10,17 +13,22 @@ export default function MoviePad(props) {
                     <div className='col-4'>
                         <Image className='board__image-wrapper'>
                             {props.item.poster_path ?
-                                <img
+                                <LazyLoadImage
                                     className='board__image'
                                     src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${props.item.poster_path}`}
+                                    palaceholder={<h3>Loading...</h3>}
+                                    effect="blur"
                                     alt={
                                         props.type === 'movie' ? props.item.title:
                                         props.type === 'tv' ? props.item.name: 'undefined'
                                     }
-                                /> :
-                                <img
+                                />
+                                :
+                                <LazyLoadImage
                                     className='board__image'
                                     src={`https://image.shutterstock.com/image-vector/vector-graphic-no-thumbnail-symbol-260nw-1391095985.jpg`}
+                                    palaceholder={<h3>Loading...</h3>}
+                                    effect="blur"
                                     alt={
                                         props.type === 'movie' ? props.item.title:
                                         props.type === 'tv' ? props.item.name: 'undefined'

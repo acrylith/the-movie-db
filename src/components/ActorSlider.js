@@ -1,7 +1,10 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import styled from 'styled-components';
+
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 export default function ActorSlider (props) {
     const {actors} = props;
@@ -11,15 +14,20 @@ export default function ActorSlider (props) {
             <Card className='actor__card'>
                 <CardBody className='actor__body'>
                     <CardImage className='actor__image-wrapper'>
-                        {item.profile_path ?
-                            <img
-                                className='actor__image'
-                                src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.profile_path}`} alt={item.name}
-                            /> :
-                            <img
-                                className='actor__image'
-                                src={`https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=612x612&w=0&h=MOvSM2M1l_beQ4UzfSU2pfv4sRjm0zkpeBtIV-P71JE=`} alt={item.name}
-                            /> 
+                        {item.profile_path !== undefined ?
+                            <LazyLoadImage
+                                src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${item.profile_path}`}
+                                palaceholder={<h3>Loading...</h3>}
+                                effect="blur"
+                                alt={item.name}
+                            />
+                            :
+                            <LazyLoadImage
+                                src={`https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=612x612&w=0&h=MOvSM2M1l_beQ4UzfSU2pfv4sRjm0zkpeBtIV-P71JE=`}
+                                palaceholder={<h3>Loading...</h3>}
+                                effect="blur"
+                                alt={item.name}
+                            />
                         }
                     </CardImage>
                 </CardBody>
@@ -99,8 +107,15 @@ const CardBody = styled.div`
 const CardImage = styled.div`
     width: 170px;
     height: 170px;
+    background: url("https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=20&m=1214428300&s=612x612&w=0&h=MOvSM2M1l_beQ4UzfSU2pfv4sRjm0zkpeBtIV-P71JE=");
+    background-size: cover;
     border-radius: 50%;
     overflow: hidden;
+    
+    .lazy-load-image-loaded {
+        width: 100%;
+        height: 100%;
+    }
     img {
         width: 100%;
         height: 100%;

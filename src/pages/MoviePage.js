@@ -1,18 +1,20 @@
 import dayjs from 'dayjs';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { getMovieInfo } from '../redux/asynch/getMovieInfo';
 import ActorSlider from '../components/ActorSlider';
 import LoadSpinner from '../components/LoadSpinner';
 import styled from 'styled-components';
+import PosterGallery from '../components/PosterGallery';
 
-export default function MoviePage(props) {
+export default function MoviePage() {
     const params = useParams();
     const dispatch = useDispatch();
     const movieInfo = useSelector(state => state.moviePage.info)
     const crew = useSelector(state => state.moviePage.crew)
     const navigate = useNavigate()
+    const [gallery, setGallery] = useState(false)
 
     useEffect(() => {
         dispatch(getMovieInfo(params.movieId))// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,6 +79,7 @@ export default function MoviePage(props) {
 
     return (
         <section className='movie-page'>
+            {gallery === true ? <PosterGallery toggle={setGallery} type="movie" id={params.movieId} /> : null}
             <div className='container'>
                 <div className='movie'>
                     <Header className='movie__header'>
@@ -89,18 +92,20 @@ export default function MoviePage(props) {
                                 <div className='row justify-content-center'>
                                     <div className='col-md-6 col-xl-12'>
                                         <div className='movie__poster'>
-                                            <div className='movie__image-wrapper'>
+                                            <Poster className='movie__image-wrapper' onClick={() => setGallery(true)}>
                                                 {
                                                     movieInfo.isLoading === true ? <LoadSpinner />:
                                                     movieInfo.error !== null ? <h2>{movieInfo.error}</h2>:
                                                     <img
                                                         className='movie__image'
-                                                        style={{width: "100%"}}
                                                         src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movieInfo.data.poster_path}`}
                                                         alt={movieInfo.data.title}
                                                     />
                                                 }
-                                            </div>
+                                                <div className='mask'>
+                                                    <i className="ic-search" />
+                                                </div>
+                                            </Poster>
                                         </div>
                                     </div>
                                 </div>
@@ -190,5 +195,30 @@ const Vote = styled.td`
     span {
         font-weight: 300;
         color: gray;
+    }
+`
+const Poster = styled.div`
+    position: relative;
+    cursor: pointer;
+    img {
+        width: 100%;
+    }
+    .mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: all .5s;
+    }
+    &:hover {
+        .mask {
+            opacity: 1;
+        }
     }
 `
