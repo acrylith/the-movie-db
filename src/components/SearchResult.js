@@ -24,7 +24,7 @@ export default function SearchResult(props) {
                     }
                 </div>
             </div>
-            <Pagination current={page} set={setPage} total={props.searchResult.data.total_pages} />
+            <Pagination currentPage={page} onPageChange={setPage} totalPageCount={props.searchResult.data.total_pages} />
         </div>
     )
 }

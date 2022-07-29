@@ -169,6 +169,7 @@ const CardTitle = styled.h3`
 `
 const Tag = styled.span`
     position: absolute;
+    z-index: 2;
     font-size: 12px;
     font-weight: bold;
     padding: 2px 4px;

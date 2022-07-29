@@ -18,89 +18,92 @@ section {
 }
 
 @font-face {
-    font-family: 'icomoon';
-    src:  url('../fonts/icomoon.eot?bxsgdd');
-    src:  url('../fonts/icomoon.eot?bxsgdd#iefix') format('embedded-opentype'),
-      url('../fonts/icomoon.ttf?bxsgdd') format('truetype'),
-      url('../fonts/icomoon.woff?bxsgdd') format('woff'),
-      url('../fonts/icomoon.svg?bxsgdd#icomoon') format('svg');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-  }
-  
-  [class^="ic-"], [class*=" ic-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'icomoon' !important;
-    speak: never;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-  
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .ic-logo-text:before {
-    content: "\e901";
-  }
-  .ic-logo:before {
-    content: "\e900";
-  }
-  .ic-search:before {
-    content: "\f002";
-  }
-  .ic-heart:before {
-    content: "\f004";
-  }
-  .ic-star:before {
-    content: "\f005";
-  }
-  .ic-home:before {
-    content: "\f015";
-  }
-  .ic-globe:before {
-    content: "\f0ac";
-  }
-  .ic-caret-down:before {
-    content: "\f0d7";
-  }
-  .ic-caret-up:before {
-    content: "\f0d8";
-  }
-  .ic-caret-left:before {
-    content: "\f0d9";
-  }
-  .ic-caret-right:before {
-    content: "\f0da";
-  }
-  .ic-angle-left:before {
-    content: "\f104";
-  }
-  .ic-angle-right:before {
-    content: "\f105";
-  }
-  .ic-angle-up:before {
-    content: "\f106";
-  }
-  .ic-angle-down:before {
-    content: "\f107";
-  }
-  
-  /* Works on Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 12px;
-  }
-  
-  *::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background-color: gray;
-    border-radius: 20px;
-    border: 3px solid transparent;
-  }
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?bxsgdd');
+  src:  url('../fonts/icomoon.eot?bxsgdd#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?bxsgdd') format('truetype'),
+    url('../fonts/icomoon.woff?bxsgdd') format('woff'),
+    url('../fonts/icomoon.svg?bxsgdd#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ic-"], [class*=" ic-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ic-logo-text:before {
+  content: "\e901";
+}
+.ic-logo:before {
+  content: "\e900";
+}
+.ic-search:before {
+  content: "\f002";
+}
+.ic-heart:before {
+  content: "\f004";
+}
+.ic-star:before {
+  content: "\f005";
+}
+.ic-home:before {
+  content: "\f015";
+}
+.ic-globe:before {
+  content: "\f0ac";
+}
+.ic-caret-down:before {
+  content: "\f0d7";
+}
+.ic-caret-up:before {
+  content: "\f0d8";
+}
+.ic-caret-left:before {
+  content: "\f0d9";
+}
+.ic-caret-right:before {
+  content: "\f0da";
+}
+.ic-angle-left:before {
+  content: "\f104";
+}
+.ic-angle-right:before {
+  content: "\f105";
+}
+.ic-angle-up:before {
+  content: "\f106";
+}
+.ic-angle-down:before {
+  content: "\f107";
+}
+.ic-image:before {
+  content: "\f03e";
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 20px;
+  border: 3px solid transparent;
+}

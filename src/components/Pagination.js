@@ -1,26 +1,53 @@
 import React from 'react'
 import styled from 'styled-components'
+import { usePagination, DOTS } from './usePagination'
 
 export default function Pagination(props) {
+    const { onPageChange, totalPageCount, currentPage } = props
+    const paginationRange = usePagination({currentPage, totalPageCount})
+    console.log(paginationRange)
 
-    const RenderButtons = () => {
-        let content = [];
-        for(let i = 1; i <= 10; i++) {
-            content.push(
-                <Page
-                    className='pagination__item'
-                    key={i}
-                    onClick={() => props.set(i)}
-                    disabled={i === props.current ? true : false}>
-                        {i}
-                </Page>
-            )
-        }
-        return content
+    let lastPage = paginationRange !== undefined && paginationRange.length > 2 ? paginationRange[paginationRange.length - 1] : 1
+
+    const onPrev = () => {
+        onPageChange(currentPage - 1)
+    }
+
+    const onNext = () => {
+        onPageChange(currentPage + 1)
     }
     return (
         <Pag className='pagination'>
-            <RenderButtons />
+            <Page
+                className='pagination__item'
+                onClick={() => onPrev()}
+                disabled={currentPage === 1 ? true : false}
+            >
+                <i className='ic-caret-left' />
+            </Page>
+            {paginationRange !== undefined ? paginationRange.map(pageNumber => {
+                if (pageNumber === DOTS) {
+                    return <Page key={pageNumber}>{pageNumber}</Page>
+                } else {
+                    return (
+                        <Page
+                            key = {pageNumber}
+                            className = 'pagination__item'
+                            disabled = {pageNumber === currentPage ? true : false}
+                            onClick = {() => onPageChange(pageNumber)}
+                        >
+                            {pageNumber}
+                        </Page>
+                    )
+                }
+            }) : null}
+            <Page
+                className='pagination__item'
+                onClick={() => onNext()}
+                disabled={currentPage === lastPage ? true : false}
+            >
+                <i className='ic-caret-right' />
+            </Page>
         </Pag>
     )
 }

@@ -113,7 +113,7 @@ export default function SeriesPage() {
                                                     />
                                                 }
                                                 <div className='mask'>
-                                                    <i className="ic-search" />
+                                                    <i className="ic-image" />
                                                 </div>
                                             </Poster>
                                         </div>
@@ -237,6 +237,10 @@ const Poster = styled.div`
         background-color: rgba(0, 0, 0, 0.5);
         opacity: 0;
         transition: all .5s;
+        i {
+            font-size: 36px;
+            color: ${props => props.theme.main}
+        }
     }
     &:hover {
         .mask {

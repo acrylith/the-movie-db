@@ -17,7 +17,7 @@ export default function PosterGallery(props) {
     const galleryData = useSelector(state => state.gallery.data)
     const isLoading = useSelector(state => state.gallery.isLoading)
     useEffect(() => {
-        dispatch(getGallery(props.type, props.id))
+        dispatch(getGallery(props.type, props.id))// eslint-disable-next-line
     }, [])
 
     const wrapperStyles = {
@@ -43,24 +43,26 @@ export default function PosterGallery(props) {
     
     return (
         <Modal>
-            <CloseButton onClick={() => props.toggle(false)}>X</CloseButton>
-            {isLoading === true ?
-                <LoadSpinner /> :
-                <StyledSwiper
-                    modules={[Navigation, Pagination]}
-                    slidesPerView={1}
-                    navigation
-                    pagination = {{type: "fraction"}}
-                    speed={1}
-                    allowTouchMove={false}
-                >
-                    {galleryData.posters !== undefined && galleryData.posters.length !== 0 ?
-                        galleryData.posters.map(item => createSlide(item))
-                        : <Empty>Empty</Empty>
-                    }
-                </StyledSwiper>
-            }
-            
+            <CloseButton onClick={() => props.toggle(false)}>&#9587;</CloseButton>
+            <div className='container'>
+                {isLoading === true ?
+                    <LoadSpinner /> :
+                    <StyledSwiper
+                        modules={[Navigation, Pagination]}
+                        slidesPerView={1}
+                        navigation
+                        pagination = {{type: "fraction"}}
+                        speed={1}
+                        allowTouchMove={false}
+                    >
+                        {galleryData.posters !== undefined && galleryData.posters.length !== 0 ?
+                            galleryData.posters.map(item => createSlide(item))
+                            : <Empty>Empty</Empty>
+                        }
+                    </StyledSwiper>
+                }
+            </div>
+
         </Modal>
     )
 }
@@ -121,6 +123,7 @@ const CloseButton = styled.button`
     background-color: rgba(0, 0, 0, 0.2);
     padding: 10px 20px 20px 20px;
     color: white;
+    font-weight: bold;
     border: none;
     border-radius: 0 0 0 70%;
     transition: all .5s;
